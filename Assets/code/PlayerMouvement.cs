@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float standHeight = 2f;
     public float mouseSensitivity = 100f;
     public Camera playerCamera;
+    public int maxJumps = 2; // Nombre maximal de sauts
 
     private float xRotation = 0f;
     private Rigidbody rb;
@@ -17,19 +18,24 @@ public class PlayerMovement : MonoBehaviour
     private bool isSprinting = false;
     private float currentSpeed;
     private Vector3 originalScale;
+    private int jumpCount = 0; // Compteur de sauts
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
 
-        currentSpeed = walkSpeed;
-        originalScale = transform.localScale;
-
         if (playerCamera == null)
         {
             playerCamera = GetComponentInChildren<Camera>();
+            if (playerCamera == null)
+            {
+                Debug.LogError("Aucune camï¿½ra trouvï¿½e dans les enfants du Player !");
+            }
         }
+
+        currentSpeed = walkSpeed;
+        originalScale = transform.localScale;
     }
 
     void Update()
@@ -61,9 +67,21 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Saut avec Espace
-        if (Input.GetKeyDown(KeyCode.Space) && IsGrounded())
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            if (IsGrounded())
+            {
+                // Premier saut
+                jumpCount = 1;
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
+            else if (jumpCount < maxJumps)
+            {
+                // Double saut
+                jumpCount++;
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Rï¿½initialise la vitesse verticale
+                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            }
         }
 
         // Mouvement ZQSD
@@ -72,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 
         transform.Translate(x, 0, z);
 
-        // Rotation de la caméra avec la souris
+        // Rotation de la camï¿½ra avec la souris
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
@@ -85,6 +103,11 @@ public class PlayerMovement : MonoBehaviour
 
     bool IsGrounded()
     {
-        return Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        bool grounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
+        if (grounded)
+        {
+            jumpCount = 0; // Rï¿½initialise le compteur de sauts
+        }
+        return grounded;
     }
 }
