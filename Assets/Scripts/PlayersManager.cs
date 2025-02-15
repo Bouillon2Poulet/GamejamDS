@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class PlayersManager : MonoBehaviour
 {
@@ -14,10 +15,14 @@ public class PlayersManager : MonoBehaviour
 
     private AudioSource switchSound;
 
-    
+    public TextMeshProUGUI commandsText;
+    public Animator anim;
+
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        switchSound = gameObject.GetComponent<AudioSource>();
         CurrentPlayer = Player1;
         Player1.GetComponent<PlayerHandler>().SetActive(true);
         Player2.GetComponent<PlayerHandler>().SetActive(false);
@@ -27,7 +32,6 @@ public class PlayersManager : MonoBehaviour
 
         OnCurrentPlayerChanged.Invoke();
 
-        switchSound = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -53,15 +57,18 @@ public class PlayersManager : MonoBehaviour
             CurrentPlayer = Player2;
             Player2.GetComponent<PlayerHandler>().SetActive(true);
             Player1.GetComponent<PlayerHandler>().SetActive(false);
+            commandsText.text ="(E) : changer <br> (Ctrl) : s'accroupir <br> (A) : ouvrir la DS";
         }
         else
         {
             CurrentPlayer = Player1;
             Player1.GetComponent<PlayerHandler>().SetActive(true);
             Player2.GetComponent<PlayerHandler>().SetActive(false);
+            commandsText.text ="(E) : changer <br> (Espace) x2 : double saut <br> (A) : ouvrir la DS";
         }
 
         switchSound.Play();
+        anim.Play("Flash", -1, 0f);
         OnCurrentPlayerChanged.Invoke();
     }
 
