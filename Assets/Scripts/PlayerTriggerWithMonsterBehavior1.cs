@@ -63,5 +63,6 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
                 TPSound.PlayOneShot(TP2);
             }
 
-    }}
+        }
+    }
 }

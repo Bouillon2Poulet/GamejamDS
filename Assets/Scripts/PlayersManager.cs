@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,8 @@ public class PlayersManager : MonoBehaviour
     [SerializeField] private GameObject Player2;
 
     public GameObject CurrentPlayer;
+
+    public static event Action OnCurrentPlayerChanged;
 
     public AudioSource switchSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,6 +21,8 @@ public class PlayersManager : MonoBehaviour
 
         Player1.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(1);
         Player2.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(2);
+
+        OnCurrentPlayerChanged.Invoke();
 
         switchSound = gameObject.GetComponent<AudioSource>();
     }
@@ -48,6 +53,7 @@ public class PlayersManager : MonoBehaviour
         }
 
         switchSound.Play();
+        OnCurrentPlayerChanged.Invoke();
     }
 
     public int getPlayerId() {
