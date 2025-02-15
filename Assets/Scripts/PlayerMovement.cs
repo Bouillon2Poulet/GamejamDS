@@ -10,7 +10,6 @@ public class PlayerMovement : MonoBehaviour
     public float standHeight = 2f;
     public float mouseSensitivity = 100f;
     public Camera playerCamera;
-    public int maxJumps = 2; // Nombre maximal de sauts
 
     private float xRotation = 0f;
     private Rigidbody rb;
@@ -19,6 +18,11 @@ public class PlayerMovement : MonoBehaviour
     private float currentSpeed;
     private Vector3 originalScale;
     private int jumpCount = 0; // Compteur de sauts
+
+    //Player related variable
+    int maxJumps = 0; // Nombre maximal de sauts
+    bool canCrouch = false;
+    [SerializeField] private GameObject HeadGameObject;
 
     void Start()
     {
@@ -53,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Accroupissement avec Ctrl
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (Input.GetKeyDown(KeyCode.LeftControl) && canCrouch)
         {
             isCrouching = true;
             transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
@@ -79,27 +83,35 @@ public class PlayerMovement : MonoBehaviour
             {
                 // Double saut
                 jumpCount++;
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // R�initialise la vitesse verticale
+                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset vitesse verticale
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }
 
-        // Mouvement ZQSD
-        float x = Input.GetAxis("Horizontal") * currentSpeed * Time.deltaTime;
-        float z = Input.GetAxis("Vertical") * currentSpeed * Time.deltaTime;
+        // Récupération des inputs de déplacement
+        float moveX = Input.GetAxis("Horizontal");
+        float moveZ = Input.GetAxis("Vertical");
 
-        transform.Translate(x, 0, z);
+        // Calcul de la direction du mouvement par rapport à la caméra
+        Vector3 moveDirection = playerCamera.transform.forward * moveZ + playerCamera.transform.right * moveX;
+        moveDirection.y = 0; // On évite de modifier la hauteur
 
-        // Rotation de la cam�ra avec la souris
+        // Déplacement
+        transform.position += moveDirection.normalized * currentSpeed * Time.deltaTime;
+
+        // Rotation de la caméra avec la souris
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
+        // Rotation en X de la caméra (pitch)
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 90f, 0f);
 
-        playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        // Rotation en Y du personnage (yaw)
         transform.Rotate(Vector3.up * mouseX);
     }
+
 
     bool IsGrounded()
     {
@@ -109,5 +121,23 @@ public class PlayerMovement : MonoBehaviour
             jumpCount = 0; // R�initialise le compteur de sauts
         }
         return grounded;
+    }
+
+    public void SetPlayerBehaviorVariable(int playerIndex)
+    {
+        if (playerIndex == 1)
+        {
+            maxJumps = 2;
+            HeadGameObject.transform.localPosition = new Vector3(0, 0, 0);
+        }
+        else if (playerIndex == 2)
+        {
+            canCrouch = true;
+            HeadGameObject.transform.localPosition = new Vector3(0, -1.8f, 0);
+        }
+        else
+        {
+            Debug.LogError("Wrong player index inputed");
+        }
     }
 }
