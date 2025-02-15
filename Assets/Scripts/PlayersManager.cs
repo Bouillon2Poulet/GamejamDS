@@ -7,6 +7,8 @@ public class PlayersManager : MonoBehaviour
     [SerializeField] private GameObject Player2;
 
     public GameObject CurrentPlayer;
+
+    public AudioSource switchSound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -16,6 +18,8 @@ public class PlayersManager : MonoBehaviour
 
         Player1.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(1);
         Player2.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(2);
+
+        switchSound = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -42,6 +46,8 @@ public class PlayersManager : MonoBehaviour
             Player1.GetComponent<PlayerHandler>().SetActive(true);
             Player2.GetComponent<PlayerHandler>().SetActive(false);
         }
+
+        switchSound.Play();
     }
 
     public int getPlayerId() {

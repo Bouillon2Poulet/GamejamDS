@@ -12,12 +12,19 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     private float mapSize = 70f;
     private float minimumDistance;
 
+    private AudioSource TPSound;
+    public AudioClip TP1;
+    public AudioClip TP2;
+
+
+
     private Vector3 tpPosition; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PM = GM.GetComponent<PlayersManager>();
         minimumDistance = mapSize/3f;
+        TPSound = gameObject.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -50,6 +57,11 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
             }
 
             transform.position = tpPosition;
+            if (gameObject == PM.CurrentPlayer) {
+                TPSound.PlayOneShot(TP1);
+            } else {
+                TPSound.PlayOneShot(TP2);
+            }
 
     }}
 }
