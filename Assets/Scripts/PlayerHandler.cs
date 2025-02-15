@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerHandler : MonoBehaviour
 {
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,4 +20,6 @@ public class PlayerHandler : MonoBehaviour
         GetComponentInChildren<AudioListener>().enabled = active;
         GetComponent<PlayerMovement>().enabled = active;
     }
+
+    
 }

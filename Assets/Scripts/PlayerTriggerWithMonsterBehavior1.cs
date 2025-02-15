@@ -64,5 +64,6 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
             }
 
         }
+
     }
 }

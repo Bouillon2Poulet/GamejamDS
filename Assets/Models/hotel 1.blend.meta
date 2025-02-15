@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: c6256c3ea42408546ac888193873f7ac
+guid: 2a2a1f4d1654d594fac96fc1eb6cfff8
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Mur
-    second: {fileID: 2100000, guid: ec49f6a1350ab164d99e5bb854f4d3cf, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Obstacle
-    second: {fileID: 2100000, guid: d023a913788dbc84a8aa197b931e057b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Obstacle Bleu
-    second: {fileID: 2100000, guid: e2f22ba77d18aef43a24baf01ddc676a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Sol
-    second: {fileID: 2100000, guid: 3cf4d6d4d04bcbe499091db372bc9ba1, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Vegetation
-    second: {fileID: 2100000, guid: b133c1f17dab24c48b61d56976d75fdf, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0

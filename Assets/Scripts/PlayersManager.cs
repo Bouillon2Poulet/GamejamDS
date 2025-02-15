@@ -1,17 +1,20 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayersManager : MonoBehaviour
 {
-    [SerializeField] private GameObject Player1;
-    [SerializeField] private GameObject Player2;
+    public GameObject Player1;
+    public GameObject Player2;
 
     public GameObject CurrentPlayer;
 
     public static event Action OnCurrentPlayerChanged;
 
-    public AudioSource switchSound;
+    private AudioSource switchSound;
+
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -34,6 +37,12 @@ public class PlayersManager : MonoBehaviour
         {
             Debug.Log("Changing players");
             SwitchPlayer();
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Debug.Log("Reload");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

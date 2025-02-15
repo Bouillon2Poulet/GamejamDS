@@ -139,7 +139,7 @@ public class PlayerMovement : MonoBehaviour
         else if (playerIndex == 2)
         {
             canCrouch = true;
-            HeadGameObject.transform.localPosition = new Vector3(0, -1.8f, 0);
+            HeadGameObject.transform.localPosition = new Vector3(0, -1.3f, 0);
             Player1Mesh.SetActive(false);
         }
         else
