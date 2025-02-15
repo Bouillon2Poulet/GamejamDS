@@ -45,7 +45,7 @@ public class PlayersManager : MonoBehaviour
     }
 
     public int getPlayerId() {
-        return (Player1 == Player1 ? 1 : 2);
+        return (CurrentPlayer == Player1 ? 1 : 2);
     }
 
     public GameObject getOtherPlayer(GameObject Player) {
