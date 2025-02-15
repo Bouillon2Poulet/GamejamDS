@@ -9,7 +9,7 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     public GameObject GM;
 
     private PlayersManager PM;
-    private float mapSize = 130f;
+    private float mapSize = 70f;
     private float minimumDistance;
 
     private Vector3 tpPosition; 

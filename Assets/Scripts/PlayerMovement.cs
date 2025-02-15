@@ -22,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     //Player related variable
     int maxJumps = 0; // Nombre maximal de sauts
     bool canCrouch = false;
+    bool canJump = false;
     [SerializeField] private GameObject HeadGameObject;
 
     void Start()
@@ -73,13 +74,13 @@ public class PlayerMovement : MonoBehaviour
         // Saut avec Espace
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (IsGrounded())
+            if (IsGrounded() && canJump)
             {
                 // Premier saut
                 jumpCount = 1;
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
-            else if (jumpCount < maxJumps)
+            else if (jumpCount < maxJumps  && canJump)
             {
                 // Double saut
                 jumpCount++;
@@ -128,6 +129,7 @@ public class PlayerMovement : MonoBehaviour
         if (playerIndex == 1)
         {
             maxJumps = 2;
+            canJump = true;
             HeadGameObject.transform.localPosition = new Vector3(0, 0, 0);
         }
         else if (playerIndex == 2)
