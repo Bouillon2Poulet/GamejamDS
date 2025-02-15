@@ -6,7 +6,7 @@ public class PlayersManager : MonoBehaviour
     [SerializeField] private GameObject Player1;
     [SerializeField] private GameObject Player2;
 
-    private GameObject CurrentPlayer;
+    public GameObject CurrentPlayer;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -43,4 +43,9 @@ public class PlayersManager : MonoBehaviour
             Player2.GetComponent<PlayerHandler>().SetActive(false);
         }
     }
+
+    public GameObject getOtherPlayer(GameObject Player) {
+        return (Player == Player1 ? Player2 : Player1);
+    }
+
 }
