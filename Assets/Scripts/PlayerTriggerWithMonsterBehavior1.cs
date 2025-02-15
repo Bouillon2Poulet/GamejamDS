@@ -1,6 +1,7 @@
 
 using UnityEngine.AI;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
 {
@@ -8,14 +9,15 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     public GameObject GM;
 
     private PlayersManager PM;
-    public float minimumDistance = 50f;
+    private float mapSize = 130f;
+    private float minimumDistance;
 
     private Vector3 tpPosition; 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         PM = GM.GetComponent<PlayersManager>();
-
+        minimumDistance = mapSize/3f;
     }
 
     // Update is called once per frame
@@ -24,12 +26,12 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
 
     }
 
-    // Renvoie une position aléatoire dans la sphère de rayon radius et appartenant au NavMesh
-    public Vector3 RandomNavmeshLocation(float radius) {
-        Vector3 randomPosition = Random.insideUnitSphere * radius;
+    // Renvoie une position aléatoire dans la sphère de rayon mapSize et appartenant au NavMesh
+    public Vector3 RandomNavmeshLocation() {
+        Vector3 randomPosition = Random.insideUnitSphere * mapSize;
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomPosition, out hit, radius, 1)) {
+        if (NavMesh.SamplePosition(randomPosition, out hit, mapSize, 1)) {
             finalPosition = hit.position;            
         }
         return finalPosition;
@@ -40,13 +42,14 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     {
         if (other.tag == "Monster"){
 
-            tpPosition = RandomNavmeshLocation(145f);
+            tpPosition = RandomNavmeshLocation();
 
             // Pour se faire tp loin de l'autre perso
             while (Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position) < minimumDistance) {
-                tpPosition = RandomNavmeshLocation(145f);
+                tpPosition = RandomNavmeshLocation();
             }
 
             transform.position = tpPosition;
+
     }}
 }
