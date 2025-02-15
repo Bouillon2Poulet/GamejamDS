@@ -83,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
                 jumpCount = 1;
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
-            else if (jumpCount < maxJumps  && canJump)
+            else if (jumpCount < maxJumps && canJump)
             {
                 // Double saut
                 jumpCount++;

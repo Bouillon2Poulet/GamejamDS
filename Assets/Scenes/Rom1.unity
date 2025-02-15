@@ -151,6 +151,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Player1: {fileID: 692805234}
   Player2: {fileID: 2124779183}
+  CurrentPlayer: {fileID: 0}
+  switchSound: {fileID: 0}
 --- !u!4 &126495150
 Transform:
   m_ObjectHideFlags: 0
@@ -490,6 +492,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 962044193390636995, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1402948314031886940, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.3
+      objectReference: {fileID: 0}
     - target: {fileID: 2751580220455367377, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -559,6 +573,38 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.91386867
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.2843759
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.2766965
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.08610188
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 34.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 1787659814217329394, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 33.69
+      objectReference: {fileID: 0}
     - target: {fileID: 4092479759453996131, guid: d44976e601541b84681aaddf3e0449f0, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10
