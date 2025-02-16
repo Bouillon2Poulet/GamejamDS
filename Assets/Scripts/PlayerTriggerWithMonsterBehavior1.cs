@@ -52,11 +52,13 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
         if (other.tag == "Monster"){
 
             tpPosition = RandomNavmeshLocation();
+            float distanceBetweenPlayers = Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position);
 
-            // // Pour se faire tp loin de l'autre perso
-            // while (Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position) < minimumDistance) {
-            //     tpPosition = RandomNavmeshLocation();
-            // }
+            // Pour se faire tp loin de l'autre perso
+            while (distanceBetweenPlayers < minimumDistance) {
+                tpPosition = RandomNavmeshLocation();
+                distanceBetweenPlayers = Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position);
+            }
 
             transform.position = tpPosition;
 
