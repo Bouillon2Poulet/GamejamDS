@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEditor.Animations;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class PlayerHandler : MonoBehaviour
     private Vector3 dsOpenPosition;
     private Vector3 dsClosedPosition;
     bool bIsActive = false;
+
+
 
     void Start()
     {
@@ -60,6 +63,7 @@ public class PlayerHandler : MonoBehaviour
                 dsIsOpen = true;
             }
         }
+
     }
 
     private IEnumerator MoveDs(Vector3 targetPosition)

@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class PlayersManager : MonoBehaviour
 {
@@ -17,6 +18,12 @@ public class PlayersManager : MonoBehaviour
 
     public TextMeshProUGUI commandsText;
     public Animator anim;
+
+    public GameObject Monster;
+
+    public Image voileBlanc;
+
+    
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,6 +64,25 @@ public class PlayersManager : MonoBehaviour
         {
             Debug.Log("Reload");
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+                
+        if (Vector3.Distance(CurrentPlayer.transform.position, Monster.transform.position) < 10f)
+        {
+            // Calculer la distance entre le joueur et le monstre
+            float distance = Vector3.Distance(CurrentPlayer.transform.position, Monster.transform.position);
+
+            // Calculer l'alpha en fonction de la distance
+            // Plus la distance est petite, plus l'alpha est proche de 1
+            float alpha = 1 - (distance / 10f); 
+
+            // Clamper l'alpha entre 0 et 1
+            alpha = Mathf.Clamp(alpha, 0f, 1f);
+
+            // Appliquer la nouvelle couleur avec l'alpha calculé
+            voileBlanc.color = new Color(1, 1, 1, alpha);
+        } else {
+             voileBlanc.color = new Color(1, 1, 1, 0f);
         }
     }
 

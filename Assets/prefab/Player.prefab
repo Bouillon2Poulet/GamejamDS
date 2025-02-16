@@ -287,6 +287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GM: {fileID: 0}
+  mapSize: 150
+  MonsterDetectionDistance: 5
+  TransitionWavePlane: {fileID: 0}
   TP1: {fileID: 8300000, guid: db95a9c210f9e1d49a8dfe9c01d715b9, type: 3}
   TP2: {fileID: 8300000, guid: 8dda018ccdba5f642bfb4b5527e33128, type: 3}
 --- !u!82 &5296028478234718618
