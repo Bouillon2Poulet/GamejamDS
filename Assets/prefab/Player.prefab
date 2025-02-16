@@ -185,6 +185,7 @@ GameObject:
   - component: {fileID: 7050393221344247042}
   - component: {fileID: 5296028478234718618}
   - component: {fileID: 5319423540081105561}
+  - component: {fileID: 8124510790169560536}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -288,8 +289,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GM: {fileID: 0}
   mapSize: 150
-  MonsterDetectionDistance: 5
-  TransitionWavePlane: {fileID: 0}
   TP1: {fileID: 8300000, guid: db95a9c210f9e1d49a8dfe9c01d715b9, type: 3}
   TP2: {fileID: 8300000, guid: 8dda018ccdba5f642bfb4b5527e33128, type: 3}
 --- !u!82 &5296028478234718618
@@ -408,10 +407,31 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.95
+  m_Radius: 0.59
   m_Height: 3.01
   m_Direction: 1
-  m_Center: {x: 0.18, y: 0.71, z: 0}
+  m_Center: {x: 0.48000002, y: 0.81, z: 0.08866525}
+--- !u!65 &8124510790169560536
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8592446154182264923}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.1, y: 1, z: 1}
+  m_Center: {x: 1.36, y: 1.35, z: -0.54}
 --- !u!1001 &1051831151838895814
 PrefabInstance:
   m_ObjectHideFlags: 0
