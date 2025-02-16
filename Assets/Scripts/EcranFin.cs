@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections;
+using UnityEngine.UI;
 
 public class EcranFin : MonoBehaviour
 {
@@ -14,12 +16,48 @@ public class EcranFin : MonoBehaviour
     private Vector3 firstPosition;
     private Quaternion firstRotation;
 
+    [SerializeField]
+    private Image transitionImage;
+    [SerializeField]
+    private float fadeDuration = 2f;
+
+    [SerializeField]
+    private GameObject buttonQuit;
+
     private void Start()
     {
+        buttonQuit.SetActive(false);
         firstPosition = transform.position;
         firstRotation = transform.rotation;
+
+        StartCoroutine(FadeFromWhite());
+    }
+
+    private IEnumerator FadeFromWhite()
+    {
+        float elapsedTime = 0f;
+        Color color = transitionImage.color;
+
+        // Assurer que l'image est totalement blanche au début
+        transitionImage.color = new Color(color.r, color.g, color.b, 1);
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Clamp01(1 - (elapsedTime / fadeDuration));
+            transitionImage.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
+
+        // S'assurer que l'alpha est bien à 0 (totalement transparent)
+        transitionImage.color = new Color(color.r, color.g, color.b, 0);
+
+        buttonQuit.SetActive(true);
+
+        // Lancer la séquence de caméra une fois le fondu terminé
         StartCoroutine(CameraSequence());
     }
+
 
     private IEnumerator CameraSequence()
     {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
@@ -17,8 +18,17 @@ public class MainMenu : MonoBehaviour
 
     private bool reversing = false;
 
-    public float delayBeforeLoad = 6f;
+    public float delayBeforeLoad = 5f;
 
+    [SerializeField] 
+    private Image transitionImage; 
+    [SerializeField] 
+    private float fadeDuration = 2f;
+
+    [SerializeField]
+    private GameObject buttonPlay;
+    [SerializeField]
+    private GameObject buttonQuit;
 
     private void Update()
     {
@@ -46,9 +56,28 @@ public class MainMenu : MonoBehaviour
 
     private IEnumerator BeforeLoadingScene()
     {
-
+        buttonPlay.SetActive(false);
+        buttonQuit.SetActive(false);
+        yield return StartCoroutine(FadeToWhite());
         yield return new WaitForSeconds(delayBeforeLoad);
         SceneManager.LoadSceneAsync(1);
+    }
+
+    private IEnumerator FadeToWhite()
+    {
+        float elapsedTime = 0f;
+        Color color = transitionImage.color;
+
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Clamp01(elapsedTime / fadeDuration);
+            transitionImage.color = new Color(color.r, color.g, color.b, alpha);
+            yield return null;
+        }
+
+
+        transitionImage.color = new Color(color.r, color.g, color.b, 1);
     }
 
     public void QuitGame()
