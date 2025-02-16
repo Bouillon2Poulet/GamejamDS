@@ -25,11 +25,9 @@ public class PlayerHandler : MonoBehaviour
 
     public void InitNintendoPosition()
     {
-        Debug.Log("!!!!!!!!!!!!!!");
         dsOpenPosition = NintendoDs.transform.localPosition;
         dsClosedPosition = dsOpenPosition + new Vector3(0, -1f, 0);
         NintendoDs.transform.localPosition = dsClosedPosition;
-        Debug.Log(dsOpenPosition);
     }
 
     public void SetActive(bool active)
@@ -43,12 +41,10 @@ public class PlayerHandler : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P) && bIsActive)
+        if (Input.GetKeyDown(KeyCode.Q) && bIsActive)
         {
-            Debug.Log("DS");
             if (dsIsOpen)
             {
-                Debug.Log("Closing");
                 animator.SetBool("isClosing", true);
                 animator.SetBool("isOpening", false);
                 StartCoroutine(MoveDs(dsClosedPosition));
@@ -56,7 +52,6 @@ public class PlayerHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log("Opening");
                 animator.SetBool("isOpening", true);
                 animator.SetBool("isClosing", false);
                 StartCoroutine(MoveDs(dsOpenPosition));
@@ -81,5 +76,5 @@ public class PlayerHandler : MonoBehaviour
         NintendoDs.transform.localPosition = targetPosition; // S'assurer qu'on atteint bien la position cible
     }
 
-    
+
 }
