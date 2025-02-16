@@ -77,10 +77,13 @@ public class MessagesManager : MonoBehaviour
 
         while (currentMessageIndex < MessagesQueue.Count)
         {
-            yield return new WaitForSeconds(UnityEngine.Random.Range(2, 5));
-            //Debug.Log(MessagesQueue[(int)currentMessageIndex].msgContent);
+            yield return new WaitForSeconds(UnityEngine.Random.Range(7, 20));
             OnNewMessageSent.Invoke();
             currentMessageIndex++;
+            if (currentMessageIndex == MessagesQueue.Count)
+            {
+                currentMessageIndex = 0;
+            }
         }
     }
 
