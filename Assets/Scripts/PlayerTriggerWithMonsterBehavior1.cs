@@ -9,7 +9,7 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     public GameObject GM;
 
     private PlayersManager PM;
-    private float mapSize = 70f;
+    public float mapSize = 150f;
     private float minimumDistance;
 
     private AudioSource TPSound;
@@ -30,8 +30,9 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
+
+    
 
     // Renvoie une position aléatoire dans la sphère de rayon mapSize et appartenant au NavMesh
     public Vector3 RandomNavmeshLocation() {
@@ -39,7 +40,8 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
         NavMeshHit hit;
         Vector3 finalPosition = Vector3.zero;
         if (NavMesh.SamplePosition(randomPosition, out hit, mapSize, 1)) {
-            finalPosition = hit.position;            
+            finalPosition = hit.position;
+            Debug.Log(finalPosition);           
         }
         return finalPosition;
     }
@@ -51,17 +53,21 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
 
             tpPosition = RandomNavmeshLocation();
 
-            // Pour se faire tp loin de l'autre perso
-            while (Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position) < minimumDistance) {
-                tpPosition = RandomNavmeshLocation();
-            }
+            // // Pour se faire tp loin de l'autre perso
+            // while (Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position) < minimumDistance) {
+            //     tpPosition = RandomNavmeshLocation();
+            // }
 
             transform.position = tpPosition;
+
+
             if (gameObject == PM.CurrentPlayer) {
                 TPSound.PlayOneShot(TP1);
             } else {
                 TPSound.PlayOneShot(TP2);
             }
 
-    }}
+        }
+
+    }
 }

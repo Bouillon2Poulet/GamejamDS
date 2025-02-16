@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    public float sprintSpeed = 8f;
+    public float walkSpeed = 8f;
+    public float sprintSpeed = 16f;
     public float crouchSpeed = 3f;
     public float jumpForce = 5f;
     public float crouchHeight = 1f;
@@ -24,6 +24,9 @@ public class PlayerMovement : MonoBehaviour
     bool canCrouch = false;
     bool canJump = false;
     [SerializeField] private GameObject HeadGameObject;
+
+    [SerializeField] private GameObject Player1Mesh;
+    [SerializeField] private GameObject Player2Mesh;
 
     void Start()
     {
@@ -80,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
                 jumpCount = 1;
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
-            else if (jumpCount < maxJumps  && canJump)
+            else if (jumpCount < maxJumps && canJump)
             {
                 // Double saut
                 jumpCount++;
@@ -106,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
 
         // Rotation en X de la caméra (pitch)
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation = Mathf.Clamp(xRotation, -90f, 20f);
         playerCamera.transform.localRotation = Quaternion.Euler(xRotation, 90f, 0f);
 
         // Rotation en Y du personnage (yaw)
@@ -130,12 +133,14 @@ public class PlayerMovement : MonoBehaviour
         {
             maxJumps = 2;
             canJump = true;
-            HeadGameObject.transform.localPosition = new Vector3(0, 0, 0);
+            Player2Mesh.SetActive(false);
+            // HeadGameObject.transform.localPosition = new Vector3(0, 0, 0);
         }
         else if (playerIndex == 2)
         {
             canCrouch = true;
-            HeadGameObject.transform.localPosition = new Vector3(0, -1.8f, 0);
+            HeadGameObject.transform.localPosition = new Vector3(0, -1.3f, 0);
+            Player1Mesh.SetActive(false);
         }
         else
         {
