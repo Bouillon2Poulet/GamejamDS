@@ -1,6 +1,8 @@
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerTriggerPlayer : MonoBehaviour
 {
@@ -28,6 +30,7 @@ public class PlayerTriggerPlayer : MonoBehaviour
          (PM.CurrentPlayer == PM.Player2) && (other.collider.CompareTag("Player 1"))
          ) {     
             Debug.Log("fin du jeu bravo");
-         }
+            SceneManager.LoadSceneAsync(2);
+        }
     }
 }
