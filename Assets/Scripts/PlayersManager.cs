@@ -65,7 +65,7 @@ public class PlayersManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Debug.Log("Reload");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().name);
         }
 
 
