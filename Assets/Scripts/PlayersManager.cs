@@ -25,6 +25,16 @@ public class PlayersManager : MonoBehaviour
         Player1.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(1);
         Player2.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(2);
 
+        Player1.GetComponent<PlayerHandler>().InitNintendoPosition();
+        Player2.GetComponent<PlayerHandler>().InitNintendoPosition();
+
+
+        Player1.GetComponentInChildren<NintendoRadarBehavior>().TargetNintendo = Player2;
+        Player2.GetComponentInChildren<NintendoRadarBehavior>().TargetNintendo = Player1;
+
+        Player1.GetComponentInChildren<MessageHandlerNintendo>().NintendoPlayerIndex = 1;
+        Player2.GetComponentInChildren<MessageHandlerNintendo>().NintendoPlayerIndex = 2;
+
         OnCurrentPlayerChanged.Invoke();
 
         switchSound = gameObject.GetComponent<AudioSource>();
@@ -65,11 +75,13 @@ public class PlayersManager : MonoBehaviour
         OnCurrentPlayerChanged.Invoke();
     }
 
-    public int getPlayerId() {
+    public int getPlayerId()
+    {
         return (CurrentPlayer == Player1 ? 1 : 2);
     }
 
-    public GameObject getOtherPlayer(GameObject Player) {
+    public GameObject getOtherPlayer(GameObject Player)
+    {
         return (Player == Player1 ? Player2 : Player1);
     }
 

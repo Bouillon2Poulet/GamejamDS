@@ -9,6 +9,10 @@ public class HiddenStateBehavior : StateMachineBehaviour
         {
             mesh.enabled = false;
         }
+        foreach (Canvas canvas in animator.transform.parent.GetComponentsInChildren<Canvas>())
+        {
+            canvas.enabled = false;
+        }
         animator.SetBool("isClosing", false);
         animator.SetBool("isOpening", false);
     }
@@ -25,6 +29,10 @@ public class HiddenStateBehavior : StateMachineBehaviour
         foreach (MeshRenderer mesh in animator.transform.parent.GetComponentsInChildren<MeshRenderer>())
         {
             mesh.enabled = true;
+        }
+        foreach (Canvas canvas in animator.transform.parent.GetComponentsInChildren<Canvas>())
+        {
+            canvas.enabled = true;
         }
     }
 
