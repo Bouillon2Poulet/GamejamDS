@@ -67,14 +67,14 @@ public class PlayersManager : MonoBehaviour
         }
 
                 
-        if (Vector3.Distance(CurrentPlayer.transform.position, Monster.transform.position) < 10f)
+        if (Vector3.Distance(CurrentPlayer.transform.position, Monster.transform.position) < 6f)
         {
             // Calculer la distance entre le joueur et le monstre
             float distance = Vector3.Distance(CurrentPlayer.transform.position, Monster.transform.position);
 
             // Calculer l'alpha en fonction de la distance
             // Plus la distance est petite, plus l'alpha est proche de 1
-            float alpha = 1 - (distance / 10f); 
+            float alpha = 1 - (distance / 6f); 
 
             // Clamper l'alpha entre 0 et 1
             alpha = Mathf.Clamp(alpha, 0f, 1f);
