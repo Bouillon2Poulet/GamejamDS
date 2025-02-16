@@ -9,7 +9,7 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     public GameObject GM;
 
     private PlayersManager PM;
-    public float mapSize = 150f;
+    public float mapSize = 75f;
     private float minimumDistance;
 
     private AudioSource TPSound;
@@ -30,21 +30,33 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.T)) {
+             transform.position = RandomNavmeshLocation();
+        }
     }
 
     
 
     // Renvoie une position aléatoire dans la sphère de rayon mapSize et appartenant au NavMesh
-    public Vector3 RandomNavmeshLocation() {
-        Vector3 randomPosition = Random.insideUnitSphere * mapSize;
-        NavMeshHit hit;
-        Vector3 finalPosition = Vector3.zero;
-        if (NavMesh.SamplePosition(randomPosition, out hit, mapSize, 1)) {
-            finalPosition = hit.position;
-            Debug.Log(finalPosition);           
-        }
-        return finalPosition;
+public Vector3 RandomNavmeshLocation() {
+    // Définir une taille maximale pour la recherche autour de la position actuelle.
+    float maxDistance = 100f; // Taille de la zone où tu veux générer un point aléatoire.
+    
+    // Générer une position aléatoire dans un rayon autour de la position actuelle.
+    Vector3 randomPosition = transform.position + Random.insideUnitSphere * maxDistance;
+
+    NavMeshHit hit;
+    Vector3 finalPosition = Vector3.zero;
+
+    // Rechercher une position valide sur le NavMesh à proximité de la position générée.
+    // Assurer que la recherche est dans une zone raisonnable (par exemple, la taille du monde).
+    if (NavMesh.SamplePosition(randomPosition, out hit, maxDistance, NavMesh.AllAreas)) {
+        finalPosition = hit.position;
     }
+
+    return finalPosition;
+}
+
 
     // Collision avec le monstre : je me tp
     void OnTriggerEnter(Collider other)
@@ -52,13 +64,13 @@ public class PlayerTriggerWithMonsterBehavior1 : MonoBehaviour
         if (other.tag == "Monster"){
 
             tpPosition = RandomNavmeshLocation();
-            float distanceBetweenPlayers = Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position);
+            // float distanceBetweenPlayers = Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position);
 
-            // Pour se faire tp loin de l'autre perso
-            while (distanceBetweenPlayers < minimumDistance) {
-                tpPosition = RandomNavmeshLocation();
-                distanceBetweenPlayers = Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position);
-            }
+            // // Pour se faire tp loin de l'autre perso
+            // while (distanceBetweenPlayers < minimumDistance) {
+            //     tpPosition = RandomNavmeshLocation();
+            //     distanceBetweenPlayers = Vector3.Distance(tpPosition, PM.getOtherPlayer(gameObject).transform.position);
+            // }
 
             transform.position = tpPosition;
 
