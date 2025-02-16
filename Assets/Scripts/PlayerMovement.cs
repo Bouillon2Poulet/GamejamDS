@@ -2,8 +2,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    public float sprintSpeed = 8f;
+    public float walkSpeed = 8f;
+    public float sprintSpeed = 16f;
     public float crouchSpeed = 3f;
     public float jumpForce = 5f;
     public float crouchHeight = 1f;
