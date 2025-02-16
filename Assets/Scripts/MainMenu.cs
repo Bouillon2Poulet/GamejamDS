@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class MainMenu : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class MainMenu : MonoBehaviour
     private float duration = 2f; 
 
     private bool reversing = false;
+
+    public float delayBeforeLoad = 6f;
 
 
     private void Update()
@@ -37,6 +40,14 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+
+        StartCoroutine(BeforeLoadingScene());
+    }
+
+    private IEnumerator BeforeLoadingScene()
+    {
+
+        yield return new WaitForSeconds(delayBeforeLoad);
         SceneManager.LoadSceneAsync(1);
     }
 
