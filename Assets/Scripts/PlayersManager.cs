@@ -16,14 +16,14 @@ public class PlayersManager : MonoBehaviour
 
     private AudioSource switchSound;
 
-    public TextMeshProUGUI commandsText;
     public Animator anim;
 
     public GameObject Monster;
 
     public Image voileBlanc;
 
-    
+    [SerializeField] private GameObject UI_verte;
+    [SerializeField] private GameObject UI_roz;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -33,6 +33,8 @@ public class PlayersManager : MonoBehaviour
         CurrentPlayer = Player1;
         Player1.GetComponent<PlayerHandler>().SetActive(true);
         Player2.GetComponent<PlayerHandler>().SetActive(false);
+        UI_roz.SetActive(true);
+        UI_verte.SetActive(false);
 
         Player1.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(1);
         Player2.GetComponent<PlayerMovement>().SetPlayerBehaviorVariable(2);
@@ -66,7 +68,7 @@ public class PlayersManager : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-                
+
         if (Vector3.Distance(CurrentPlayer.transform.position, Monster.transform.position) < 6f)
         {
             // Calculer la distance entre le joueur et le monstre
@@ -74,15 +76,17 @@ public class PlayersManager : MonoBehaviour
 
             // Calculer l'alpha en fonction de la distance
             // Plus la distance est petite, plus l'alpha est proche de 1
-            float alpha = 1 - (distance / 6f); 
+            float alpha = 1 - (distance / 6f);
 
             // Clamper l'alpha entre 0 et 1
             alpha = Mathf.Clamp(alpha, 0f, 1f);
 
             // Appliquer la nouvelle couleur avec l'alpha calculé
             voileBlanc.color = new Color(1, 1, 1, alpha);
-        } else {
-             voileBlanc.color = new Color(1, 1, 1, 0f);
+        }
+        else
+        {
+            voileBlanc.color = new Color(1, 1, 1, 0f);
         }
     }
 
@@ -93,14 +97,16 @@ public class PlayersManager : MonoBehaviour
             CurrentPlayer = Player2;
             Player2.GetComponent<PlayerHandler>().SetActive(true);
             Player1.GetComponent<PlayerHandler>().SetActive(false);
-            commandsText.text ="(E) : changer <br> (Ctrl) : s'accroupir <br> (A) : ouvrir la DS";
+            UI_roz.SetActive(false);
+            UI_verte.SetActive(true);
         }
         else
         {
             CurrentPlayer = Player1;
             Player1.GetComponent<PlayerHandler>().SetActive(true);
             Player2.GetComponent<PlayerHandler>().SetActive(false);
-            commandsText.text ="(E) : changer <br> (Espace) x2 : double saut <br> (A) : ouvrir la DS";
+            UI_roz.SetActive(true);
+            UI_verte.SetActive(false);
         }
 
         switchSound.Play();
