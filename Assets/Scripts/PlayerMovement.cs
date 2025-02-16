@@ -5,7 +5,7 @@ public class PlayerMovement : MonoBehaviour
     public float walkSpeed = 8f;
     public float sprintSpeed = 16f;
     public float crouchSpeed = 3f;
-    public float jumpForce = 5f;
+    public float jumpForce = 10f;
     public float crouchHeight = 1f;
     public float standHeight = 2f;
     public float mouseSensitivity = 100f;
@@ -28,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject Player1Mesh;
     [SerializeField] private GameObject Player2Mesh;
 
+    private PlayerHandler playerHandler;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 
         currentSpeed = walkSpeed;
         originalScale = transform.localScale;
+
+        playerHandler = GetComponent<PlayerHandler>();
     }
 
     void Update()
@@ -65,7 +69,12 @@ public class PlayerMovement : MonoBehaviour
         {
             isCrouching = true;
             transform.localScale = new Vector3(originalScale.x, crouchHeight, originalScale.z);
+            playerHandler.SetCanOpenDsWhenCrouching(false);
             currentSpeed = crouchSpeed;
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl) && canCrouch)
+        {
+            playerHandler.SetCanOpenDsWhenCrouching(true);
         }
         if (Input.GetKeyUp(KeyCode.LeftControl))
         {
@@ -79,15 +88,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (IsGrounded() && canJump)
             {
-                // Premier saut
-                jumpCount = 1;
-                rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            }
-            else if (jumpCount < maxJumps && canJump)
-            {
-                // Double saut
-                jumpCount++;
-                rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z); // Reset vitesse verticale
                 rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             }
         }

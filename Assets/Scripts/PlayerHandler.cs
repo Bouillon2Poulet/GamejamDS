@@ -12,7 +12,39 @@ public class PlayerHandler : MonoBehaviour
     private Vector3 dsOpenPosition;
     private Vector3 dsClosedPosition;
     bool bIsActive = false;
+    bool bCanOpenDs = true;
+    bool bDsWasOpenBeforeCrouching = false;
 
+    public void SetCanOpenDsWhenCrouching(bool canOpen)
+    {
+        if (dsIsOpen && !canOpen)
+        {
+            foreach (MeshRenderer mesh in animator.transform.parent.GetComponentsInChildren<MeshRenderer>())
+            {
+                mesh.enabled = false;
+            }
+            foreach (Canvas canvas in animator.transform.parent.GetComponentsInChildren<Canvas>())
+            {
+                canvas.enabled = false;
+            }
+            animator.SetBool("isClosing", false);
+            animator.SetBool("isOpening", false);
+            bDsWasOpenBeforeCrouching = true;
+        }
+        else if (canOpen && bDsWasOpenBeforeCrouching)
+        {
+            foreach (MeshRenderer mesh in animator.transform.parent.GetComponentsInChildren<MeshRenderer>())
+            {
+                mesh.enabled = true;
+            }
+            foreach (Canvas canvas in animator.transform.parent.GetComponentsInChildren<Canvas>())
+            {
+                canvas.enabled = true;
+            }
+            dsIsOpen = true;
+        }
+        bCanOpenDs = canOpen;
+    }
 
 
     void Start()
