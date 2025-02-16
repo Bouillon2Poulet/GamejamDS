@@ -52,18 +52,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Sprint avec Maj
-        if (Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.RightShift))
-        {
-            isSprinting = true;
-            currentSpeed = sprintSpeed;
-        }
-        if (Input.GetKeyUp(KeyCode.LeftShift) || Input.GetKeyUp(KeyCode.RightShift))
-        {
-            isSprinting = false;
-            currentSpeed = walkSpeed;
-        }
-
         // Accroupissement avec Ctrl
         if (Input.GetKeyDown(KeyCode.LeftControl) && canCrouch)
         {
