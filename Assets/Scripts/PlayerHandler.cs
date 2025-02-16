@@ -8,6 +8,8 @@ public class PlayerHandler : MonoBehaviour
     private bool dsIsOpen = false;
     [SerializeField] private GameObject NintendoDs;
     [SerializeField] private float moveDuration = 0.2f; // Temps pour l'animation
+    [SerializeField] private AudioClip NintendoOpeningSound;
+    [SerializeField] private AudioClip NintendoClosingSound;
 
     private Vector3 dsOpenPosition;
     private Vector3 dsClosedPosition;
@@ -78,6 +80,7 @@ public class PlayerHandler : MonoBehaviour
                 animator.SetBool("isOpening", false);
                 StartCoroutine(MoveDs(dsClosedPosition));
                 dsIsOpen = false;
+                NintendoDs.GetComponent<AudioSource>().PlayOneShot(NintendoOpeningSound);
             }
             else
             {
@@ -85,6 +88,7 @@ public class PlayerHandler : MonoBehaviour
                 animator.SetBool("isClosing", false);
                 StartCoroutine(MoveDs(dsOpenPosition));
                 dsIsOpen = true;
+                NintendoDs.GetComponent<AudioSource>().PlayOneShot(NintendoClosingSound);
             }
         }
 

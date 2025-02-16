@@ -274,7 +274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   NintendoDs: {fileID: 2241226128474314726}
-  moveDuration: 0.5
+  moveDuration: 0.3
+  NintendoOpeningSound: {fileID: 8300000, guid: 7f04a712f476da840b2eaac18a19ed7e, type: 3}
+  NintendoClosingSound: {fileID: 8300000, guid: 47b379db5f98393448a31d1ab454d0f9, type: 3}
 --- !u!114 &7050393221344247042
 MonoBehaviour:
   m_ObjectHideFlags: 0
